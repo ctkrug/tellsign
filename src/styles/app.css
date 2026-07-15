@@ -200,7 +200,7 @@ button {
 .tell {
   background: color-mix(in srgb, var(--accent-support) 18%, transparent);
   border-radius: 2px;
-  border-bottom: 2px solid var(--accent-support);
+  border-bottom: 2px solid var(--accent-support-ink);
   transition: background var(--motion-highlight);
   pointer-events: auto;
   cursor: help;
