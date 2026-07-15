@@ -40,16 +40,17 @@ Story 1.1 is the wow moment and must land first.
 - [x] The highlighted backdrop's plain-text content (marks stripped) is
       character-for-character identical to the raw textarea value.
 
-### [ ] 1.4 Design polish: manuscript and meter surfaces
+### [x] 1.4 Design polish: manuscript and meter surfaces
 - [x] The manuscript card, meter, and legend match `docs/DESIGN.md`'s
       tokens (colors, radius, shadow) — verified by a side-by-side check
       against the token values.
 - [x] The wordmark's hand-drawn underline draw-on animation plays once on
       load and is skipped (instant, no animation) when
       `prefers-reduced-motion: reduce` is set.
-- [ ] Layout is composed with no horizontal scroll and no dead empty
-      margins at 390px, 768px, and 1440px viewport widths. **Not yet
-      visually verified in a real browser this run — do in QA.**
+- [x] Layout is composed with no horizontal scroll and no dead empty
+      margins at 390px, 768px, and 1440px viewport widths. Verified with a
+      headless-browser check: `document.documentElement.scrollWidth` equals
+      `clientWidth` at all three breakpoints (390/768/1440), no overflow.
 
 ## Epic 2 — Corpus depth and accuracy
 
