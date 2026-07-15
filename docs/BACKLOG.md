@@ -48,10 +48,10 @@ Story 1.1 is the wow moment and must land first.
       characters that names the specific pattern, not a generic "AI-sounding
       phrase" filler.
 
-### [ ] 2.2 False-positive guardrails for matching
-- [ ] A regression test confirms `findMatches` does not match "delve"
+### [x] 2.2 False-positive guardrails for matching
+- [x] A regression test confirms `findMatches` does not match "delve"
       inside "delved," "delving," or unrelated words like "shoveled."
-- [ ] A regression test confirms a multi-word phrase tell does not
+- [x] A regression test confirms a multi-word phrase tell does not
       false-positive across unrelated adjacent sentences (e.g. the end of
       one sentence plus the start of the next never concatenates into a
       phrase match).
