@@ -73,11 +73,11 @@ Story 1.1 is the wow moment and must land first.
 
 ## Epic 3 — Category controls and sharing
 
-### [ ] 3.1 Toggle tell categories on/off
-- [ ] Unchecking a category checkbox in the sidebar immediately removes
+### [x] 3.1 Toggle tell categories on/off
+- [x] Unchecking a category checkbox in the sidebar immediately removes
       that category's highlights from the manuscript without requiring
       re-typing or re-pasting.
-- [ ] Category toggle state persists across a page reload via
+- [x] Category toggle state persists across a page reload via
       `localStorage`.
 
 ### [ ] 3.2 Shareable summary
