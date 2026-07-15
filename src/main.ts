@@ -1,0 +1,102 @@
+import "./styles/tokens.css";
+import "./styles/app.css";
+import { analyze } from "./analyze";
+import { renderHighlights } from "./render";
+import { allTells, type TellCategory } from "./data";
+
+const CATEGORY_LABELS: Record<TellCategory, string> = {
+  "inflated-verb": "Inflated verb",
+  hedge: "Hedge",
+  "transition-crutch": "Transition crutch",
+  "rule-of-three": "Rule of three",
+  disclaimer: "Disclaimer",
+  "vague-intensifier": "Vague intensifier",
+};
+
+const PLACEHOLDER = `Paste a paragraph here to see it marked up.
+
+Try something like: "In today's fast-paced world, it's important to note that we must delve into this topic. Furthermore, this solution boasts a seamless, robust design that will elevate your workflow."`;
+
+function buildLegend(): string {
+  const categories = Array.from(new Set(allTells.map((t) => t.category)));
+  return categories
+    .map((category) => {
+      const maxWeight = Math.max(...allTells.filter((t) => t.category === category).map((t) => t.weight));
+      const swatchClass = maxWeight >= 3 ? "tell-strong" : maxWeight === 2 ? "tell-medium" : "tell";
+      return `<li class="legend-item"><span class="legend-swatch ${swatchClass}"></span>${CATEGORY_LABELS[category]}</li>`;
+    })
+    .join("");
+}
+
+function render(): void {
+  const app = document.querySelector<HTMLDivElement>("#app");
+  if (!app) return;
+
+  app.innerHTML = `
+    <header class="header">
+      <h1 class="wordmark">
+        Tell<span class="mark">sign
+          <svg viewBox="0 0 80 12" preserveAspectRatio="none" aria-hidden="true">
+            <path d="M2 8 Q 40 2 78 8" />
+          </svg>
+        </span>
+      </h1>
+    </header>
+    <main class="layout">
+      <section class="manuscript-card">
+        <div class="manuscript-shell">
+          <div class="manuscript-backdrop" id="backdrop" aria-hidden="true"></div>
+          <textarea
+            class="manuscript-input"
+            id="input"
+            placeholder="${PLACEHOLDER.replace(/"/g, "&quot;")}"
+            spellcheck="false"
+          ></textarea>
+        </div>
+      </section>
+      <aside class="sidebar">
+        <div class="meter-card">
+          <div class="meter-label">AI-osity</div>
+          <div class="meter-track"><div class="meter-fill" id="meter-fill"></div></div>
+          <div class="meter-readout" id="meter-readout">0</div>
+        </div>
+        <div class="meter-card">
+          <div class="meter-label">Tell categories</div>
+          <ul class="legend">${buildLegend()}</ul>
+        </div>
+      </aside>
+    </main>
+  `;
+
+  const input = app.querySelector<HTMLTextAreaElement>("#input")!;
+  const backdrop = app.querySelector<HTMLDivElement>("#backdrop")!;
+  const meterFill = app.querySelector<HTMLDivElement>("#meter-fill")!;
+  const meterReadout = app.querySelector<HTMLDivElement>("#meter-readout")!;
+
+  let debounceHandle: ReturnType<typeof setTimeout> | undefined;
+
+  function update(): void {
+    const result = analyze(input.value);
+    backdrop.innerHTML = renderHighlights(input.value, result.matches);
+    meterFill.style.width = `${result.score}%`;
+    meterReadout.textContent = String(result.score);
+  }
+
+  input.addEventListener("input", () => {
+    clearTimeout(debounceHandle);
+    debounceHandle = setTimeout(update, 120);
+  });
+
+  input.addEventListener("scroll", () => {
+    backdrop.scrollTop = input.scrollTop;
+    backdrop.scrollLeft = input.scrollLeft;
+  });
+
+  update();
+
+  requestAnimationFrame(() => {
+    app.querySelector(".wordmark .mark svg path")?.classList.add("drawn");
+  });
+}
+
+render();
