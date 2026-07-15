@@ -85,6 +85,7 @@ function render(): void {
           ></textarea>
         </div>
       </section>
+      <div class="tell-tooltip" id="tooltip" role="tooltip"></div>
       <aside class="sidebar">
         <div class="meter-card">
           <div class="meter-label">AI-osity</div>
@@ -118,6 +119,7 @@ function render(): void {
   const legend = app.querySelector<HTMLUListElement>("#legend")!;
   const sampleButtons = app.querySelector<HTMLDivElement>("#samples")!;
   const copyButton = app.querySelector<HTMLButtonElement>("#copy-summary")!;
+  const tooltip = app.querySelector<HTMLDivElement>("#tooltip")!;
 
   let debounceHandle: ReturnType<typeof setTimeout> | undefined;
   let copyResetHandle: ReturnType<typeof setTimeout> | undefined;
@@ -129,6 +131,27 @@ function render(): void {
     backdrop.innerHTML = renderHighlights(input.value, lastResult.matches);
     meterFill.style.width = `${lastResult.score}%`;
     meterReadout.textContent = String(lastResult.score);
+  }
+
+  function showTooltip(mark: HTMLElement): void {
+    const category = mark.dataset.category as TellCategory | undefined;
+    const explanation = mark.dataset.explanation;
+    if (!category || !explanation) return;
+
+    const title = document.createElement("strong");
+    title.textContent = CATEGORY_LABELS[category] ?? category;
+    tooltip.replaceChildren(title, document.createElement("br"), document.createTextNode(explanation));
+
+    tooltip.classList.add("tell-tooltip-visible");
+    const markRect = mark.getBoundingClientRect();
+    const tooltipRect = tooltip.getBoundingClientRect();
+    const left = Math.max(8, Math.min(markRect.left, window.innerWidth - tooltipRect.width - 8));
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${Math.max(8, markRect.top - tooltipRect.height - 8)}px`;
+  }
+
+  function hideTooltip(): void {
+    tooltip.classList.remove("tell-tooltip-visible");
   }
 
   async function copySummary(): Promise<void> {
@@ -183,7 +206,34 @@ function render(): void {
   input.addEventListener("scroll", () => {
     backdrop.scrollTop = input.scrollTop;
     backdrop.scrollLeft = input.scrollLeft;
+    hideTooltip();
   });
+
+  backdrop.addEventListener("mouseover", (event) => {
+    const mark = (event.target as HTMLElement).closest<HTMLElement>(".tell");
+    if (mark) showTooltip(mark);
+  });
+
+  backdrop.addEventListener("mouseout", (event) => {
+    if ((event.target as HTMLElement).closest(".tell")) hideTooltip();
+  });
+
+  backdrop.addEventListener(
+    "touchstart",
+    (event) => {
+      const mark = (event.target as HTMLElement).closest<HTMLElement>(".tell");
+      if (mark) showTooltip(mark);
+    },
+    { passive: true },
+  );
+
+  document.addEventListener(
+    "touchstart",
+    (event) => {
+      if (!(event.target as HTMLElement).closest(".tell")) hideTooltip();
+    },
+    { passive: true },
+  );
 
   update();
 
