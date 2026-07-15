@@ -5,6 +5,7 @@ import { renderHighlights } from "./render";
 import { allTells, type TellCategory } from "./data";
 import { samples } from "./data/samples";
 import { loadDisabledCategories, saveDisabledCategories, type KeyValueStorage } from "./storage";
+import { buildSummary } from "./summary";
 
 const CATEGORY_LABELS: Record<TellCategory, string> = {
   "inflated-verb": "Inflated verb",
@@ -102,6 +103,10 @@ function render(): void {
               .join("")}
           </div>
         </div>
+        <div class="meter-card">
+          <div class="meter-label">Share</div>
+          <button type="button" class="copy-btn" id="copy-summary">Copy summary</button>
+        </div>
       </aside>
     </main>
   `;
@@ -112,15 +117,35 @@ function render(): void {
   const meterReadout = app.querySelector<HTMLDivElement>("#meter-readout")!;
   const legend = app.querySelector<HTMLUListElement>("#legend")!;
   const sampleButtons = app.querySelector<HTMLDivElement>("#samples")!;
+  const copyButton = app.querySelector<HTMLButtonElement>("#copy-summary")!;
 
   let debounceHandle: ReturnType<typeof setTimeout> | undefined;
+  let copyResetHandle: ReturnType<typeof setTimeout> | undefined;
+  let lastResult = analyze("", []);
 
   function update(): void {
     const activeTells = excludeCategories(allTells, disabled);
-    const result = analyze(input.value, activeTells);
-    backdrop.innerHTML = renderHighlights(input.value, result.matches);
-    meterFill.style.width = `${result.score}%`;
-    meterReadout.textContent = String(result.score);
+    lastResult = analyze(input.value, activeTells);
+    backdrop.innerHTML = renderHighlights(input.value, lastResult.matches);
+    meterFill.style.width = `${lastResult.score}%`;
+    meterReadout.textContent = String(lastResult.score);
+  }
+
+  async function copySummary(): Promise<void> {
+    const text = buildSummary(lastResult, CATEGORY_LABELS);
+    clearTimeout(copyResetHandle);
+    try {
+      await navigator.clipboard.writeText(text);
+      copyButton.textContent = "Copied!";
+      copyButton.classList.add("copy-btn-success");
+    } catch {
+      copyButton.textContent = "Copy failed";
+      copyButton.classList.add("copy-btn-error");
+    }
+    copyResetHandle = setTimeout(() => {
+      copyButton.textContent = "Copy summary";
+      copyButton.classList.remove("copy-btn-success", "copy-btn-error");
+    }, 1500);
   }
 
   input.addEventListener("input", () => {
@@ -149,6 +174,10 @@ function render(): void {
     input.value = sample.text;
     input.focus();
     update();
+  });
+
+  copyButton.addEventListener("click", () => {
+    void copySummary();
   });
 
   input.addEventListener("scroll", () => {
