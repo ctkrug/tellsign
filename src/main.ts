@@ -3,6 +3,7 @@ import "./styles/app.css";
 import { analyze, excludeCategories } from "./analyze";
 import { renderHighlights } from "./render";
 import { allTells, type TellCategory } from "./data";
+import { samples } from "./data/samples";
 import { loadDisabledCategories, saveDisabledCategories, type KeyValueStorage } from "./storage";
 
 const CATEGORY_LABELS: Record<TellCategory, string> = {
@@ -93,6 +94,14 @@ function render(): void {
           <div class="meter-label">Tell categories</div>
           <ul class="legend" id="legend">${buildLegend(disabled)}</ul>
         </div>
+        <div class="meter-card">
+          <div class="meter-label">Try an example</div>
+          <div class="sample-buttons" id="samples">
+            ${samples
+              .map((sample) => `<button type="button" class="sample-btn" data-sample="${sample.id}">${sample.label}</button>`)
+              .join("")}
+          </div>
+        </div>
       </aside>
     </main>
   `;
@@ -102,6 +111,7 @@ function render(): void {
   const meterFill = app.querySelector<HTMLDivElement>("#meter-fill")!;
   const meterReadout = app.querySelector<HTMLDivElement>("#meter-readout")!;
   const legend = app.querySelector<HTMLUListElement>("#legend")!;
+  const sampleButtons = app.querySelector<HTMLDivElement>("#samples")!;
 
   let debounceHandle: ReturnType<typeof setTimeout> | undefined;
 
@@ -128,6 +138,16 @@ function render(): void {
       disabled.add(category);
     }
     saveDisabledCategories(storage, disabled);
+    update();
+  });
+
+  sampleButtons.addEventListener("click", (event) => {
+    const button = event.target;
+    if (!(button instanceof HTMLButtonElement) || !button.dataset.sample) return;
+    const sample = samples.find((s) => s.id === button.dataset.sample);
+    if (!sample) return;
+    input.value = sample.text;
+    input.focus();
     update();
   });
 
