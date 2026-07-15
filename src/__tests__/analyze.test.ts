@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { findMatches, scoreMatches, analyze } from "../analyze";
+import { findMatches, scoreMatches, analyze, excludeCategories } from "../analyze";
 import type { Tell } from "../data/types";
 
 const sampleTells: Tell[] = [
@@ -73,6 +73,22 @@ describe("scoreMatches", () => {
       matchedText: "delve",
     }));
     expect(scoreMatches(heavyMatches, 10)).toBe(100);
+  });
+});
+
+describe("excludeCategories", () => {
+  it("returns the same tells unchanged when nothing is disabled", () => {
+    expect(excludeCategories(sampleTells, new Set())).toEqual(sampleTells);
+  });
+
+  it("drops tells whose category is disabled", () => {
+    const result = excludeCategories(sampleTells, new Set(["hedge"]));
+    expect(result.map((t) => t.id)).toEqual(["delve"]);
+  });
+
+  it("returns an empty list when every category is disabled", () => {
+    const result = excludeCategories(sampleTells, new Set(["hedge", "inflated-verb"]));
+    expect(result).toHaveLength(0);
   });
 });
 
