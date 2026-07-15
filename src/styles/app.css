@@ -74,6 +74,13 @@ button {
   stroke: var(--accent);
   stroke-width: 3;
   stroke-linecap: round;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  transition: stroke-dashoffset 500ms ease-out;
+}
+
+.wordmark .mark svg path.drawn {
+  stroke-dashoffset: 0;
 }
 
 .layout {
@@ -99,23 +106,6 @@ button {
   box-shadow: var(--shadow-paper);
   padding: var(--space-6);
   min-height: 60vh;
-}
-
-.manuscript-input {
-  width: 100%;
-  min-height: 50vh;
-  resize: vertical;
-  border: none;
-  outline: none;
-  background: transparent;
-  font-family: var(--font-ui);
-  font-size: 1.05rem;
-  line-height: 1.7;
-  color: var(--text);
-}
-
-.manuscript-input::placeholder {
-  color: var(--text-muted);
 }
 
 .sidebar {
@@ -158,4 +148,82 @@ button {
   margin-top: var(--space-2);
   font-family: var(--font-mono);
   font-size: 1.5rem;
+}
+
+.manuscript-shell {
+  position: relative;
+}
+
+.manuscript-backdrop,
+.manuscript-input {
+  padding: 0;
+  margin: 0;
+  border: none;
+  font-family: var(--font-ui);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.manuscript-backdrop {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  pointer-events: none;
+  color: var(--text);
+}
+
+.manuscript-input {
+  position: relative;
+  width: 100%;
+  min-height: 50vh;
+  resize: vertical;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: var(--text);
+}
+
+.manuscript-input::placeholder {
+  color: var(--text-muted);
+}
+
+.tell {
+  background: color-mix(in srgb, var(--accent-support) 18%, transparent);
+  border-radius: 2px;
+  border-bottom: 2px solid var(--accent-support);
+  transition: background var(--motion-highlight);
+  pointer-events: auto;
+  cursor: help;
+}
+
+.tell-strong {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-bottom-color: var(--accent);
+}
+
+.tell-medium {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-bottom-color: var(--accent);
+}
+
+.legend {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: 0.9rem;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.legend-swatch {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
 }
