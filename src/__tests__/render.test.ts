@@ -51,4 +51,23 @@ describe("renderHighlights", () => {
     const html = renderHighlights("nothing to see here", []);
     expect(html).toBe("nothing to see here\n");
   });
+
+  it("preserves every character of the original text once marks are stripped", () => {
+    const text = "Let's delve into <this> & that, delve again.";
+    const matches: Match[] = [
+      { tell: delve, start: 6, end: 11, matchedText: "delve" },
+      { tell: delve, start: 33, end: 38, matchedText: "delve" },
+    ];
+    const html = renderHighlights(text, matches);
+    const stripped = html
+      .replace(/<mark[^>]*>/g, "")
+      .replace(/<\/mark>/g, "")
+      .replace(/&amp;/g, "&")
+      .replace(/&lt;/g, "<")
+      .replace(/&gt;/g, ">")
+      .replace(/&quot;/g, '"')
+      .replace(/&#39;/g, "'")
+      .replace(/\n$/, "");
+    expect(stripped).toBe(text);
+  });
 });
