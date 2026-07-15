@@ -83,6 +83,12 @@ button {
   stroke-dashoffset: 0;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .wordmark .mark svg path {
+    transition: none;
+  }
+}
+
 .layout {
   flex: 1;
   display: grid;
