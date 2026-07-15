@@ -175,6 +175,7 @@ button {
 .manuscript-backdrop {
   position: absolute;
   inset: 0;
+  z-index: 2;
   overflow: auto;
   pointer-events: none;
   color: var(--text);
@@ -182,6 +183,7 @@ button {
 
 .manuscript-input {
   position: relative;
+  z-index: 1;
   width: 100%;
   min-height: 50vh;
   resize: vertical;
