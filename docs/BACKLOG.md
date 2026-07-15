@@ -8,12 +8,16 @@ Story 1.1 is the wow moment and must land first.
 
 ## Epic 1 — Core highlighting experience
 
-### [ ] 1.1 Wow moment: live paste-and-highlight with the AI-osity meter
-- [ ] Pasting a paragraph containing a corpus word (e.g. "delve") highlights
+### [x] 1.1 Wow moment: live paste-and-highlight with the AI-osity meter
+- [x] Pasting a paragraph containing a corpus word (e.g. "delve") highlights
       it inline within one debounce cycle (120ms) with no page reload.
-- [ ] Hovering (or tapping, on touch) a highlighted span shows a tooltip
-      naming the specific tell and a one-line, non-generic reason.
-- [ ] The AI-osity meter fill and numeric readout update to reflect the
+- [x] Hovering (or tapping, on touch) a highlighted span shows a tooltip
+      naming the specific tell and a one-line, non-generic reason. This was
+      actually broken until this run: the textarea painted above the
+      highlight backdrop in stacking order and silently ate every hover/tap
+      before it reached a mark (see fix commit d0fb44f, found via a
+      headless-browser check — `title`-attribute hover never worked either).
+- [x] The AI-osity meter fill and numeric readout update to reflect the
       current text any time the matches change.
 
 ### [x] 1.2 Scroll-synced overlay correctness
@@ -70,13 +74,18 @@ Story 1.1 is the wow moment and must land first.
       paragraph scores at least 2x higher than a curated "obviously plain
       human" sample paragraph of similar length.
 
-### [ ] 2.4 Design polish: legend and tooltip readability
-- [ ] The tooltip is restyled from the native browser `title` to the
+### [x] 2.4 Design polish: legend and tooltip readability
+- [x] The tooltip is restyled from the native browser `title` to the
       "paper-tag" treatment described in `docs/DESIGN.md` (sticky-note
       shadow, fade/scale-in), with the same content.
-- [ ] Legend swatch colors against `--surface-1` meet 3:1 contrast
+- [x] Legend swatch colors against `--surface-1` meet 3:1 contrast
       (non-text UI component minimum) and the mark's border color against
-      its background meets 4.5:1 for the underlined text.
+      its background meets 4.5:1 for the underlined text. Computed with
+      WCAG relative-luminance math: legend swatch (`--accent-support` vs
+      `--surface-1`) is 3.75:1; mark borders are 5.43:1 (mild, using the
+      new `--accent-support-ink`), 4.54:1 (medium), 5.04:1 (strong) — all
+      pass. The mild tier failed at 3.08:1 before the `--accent-support-ink`
+      fix in commit 2ced886.
 
 ## Epic 3 — Category controls and sharing
 
