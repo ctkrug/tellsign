@@ -23,27 +23,31 @@ edit your own writing — whether or not a model touched it.
 
 ## What it does
 
-- Paste or type text into a live editor.
-- Matching words and phrases highlight inline as you type, each with a
-  tooltip naming the specific tell ("hedging opener," "corporate rule of
-  three," "delve-class verb," ...) and why it's on the list.
+- Paste or type text into a live editor; matches highlight inline within a
+  single debounce cycle (~120ms), no reload.
+- Hovering or tapping a highlighted span pops a tooltip naming the specific
+  tell and a plain-language reason it's flagged, drawn from an 80+ entry
+  curated corpus across six categories (inflated verbs, hedges, transition
+  crutches, rule-of-three padding, disclaimers, vague intensifiers).
 - An "AI-osity" meter fills alongside the text — a transparent tally of
   matches weighted by tell category, never a probabilistic verdict.
+- A category legend doubles as a set of toggles: uncheck a category to drop
+  its highlights immediately, no re-typing required. The choice persists
+  across reloads.
+- "Try an example" loads a preset paragraph (AI-styled marketing copy vs. a
+  plain status update) to see the contrast immediately.
+- "Copy summary" copies a plain-text tally (overall score + per-category
+  match counts) to the clipboard, for sharing or roasting a suspicious post.
 - Zero network calls after page load: no model, no login, no usage limits.
   The entire corpus and scoring logic ship in the client and are readable in
   the repo.
 
 ## Planned features
 
-- A curated, categorized corpus of lexical tells (individual words/phrases)
-  and structural tells (patterns like rule-of-three lists or hedge-heavy
-  openers).
-- Per-category weighting so the meter reflects severity, not just count.
-- Hover/tap tooltips explaining each match in plain language.
-- Shareable results (copy a summary, or a permalink-style state) so people
-  can compare their own writing or roast a suspicious email.
-- A settings panel to toggle tell categories on/off, for people who want to
-  tune it to their own voice.
+- A landing/share page (`site/`) with the "honest style checker, not a
+  detector" pitch, using the same design system as the tool.
+- A full accessibility pass (keyboard-operable tooltips, live-region meter
+  announcements).
 
 ## Stack
 
@@ -54,8 +58,11 @@ subpath, no server required.
 
 ## Status
 
-Early scaffold. See [`docs/VISION.md`](docs/VISION.md) for the full design
-rationale and [`docs/BACKLOG.md`](docs/BACKLOG.md) for the build plan.
+Core highlighting, corpus, category toggles, sample loader, and sharing are
+built and tested. The landing page and a full accessibility pass are next.
+See [`docs/VISION.md`](docs/VISION.md) for the full design rationale,
+[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for how it's built, and
+[`docs/BACKLOG.md`](docs/BACKLOG.md) for the build plan.
 
 ## License
 
