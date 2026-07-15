@@ -306,3 +306,40 @@ button {
 .sample-btn:active {
   transform: translateY(1px);
 }
+
+.copy-btn {
+  width: 100%;
+  min-height: 44px;
+  margin-top: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border: none;
+  border-radius: var(--radius);
+  background: var(--accent-support);
+  color: var(--surface-1);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background var(--motion-ui), transform var(--motion-ui);
+}
+
+.copy-btn:hover {
+  background: color-mix(in srgb, var(--accent-support) 85%, black);
+}
+
+.copy-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.copy-btn:active {
+  transform: translateY(1px);
+}
+
+.copy-btn-success {
+  background: var(--success);
+}
+
+.copy-btn-error {
+  background: var(--danger);
+}
