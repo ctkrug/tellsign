@@ -1,4 +1,4 @@
-import { allTells, type Tell } from "./data";
+import { allTells, type Tell, type TellCategory } from "./data";
 
 export interface Match {
   tell: Tell;
@@ -59,6 +59,12 @@ export function scoreMatches(matches: Match[], wordCount: number): number {
   const totalWeight = matches.reduce((sum, m) => sum + m.tell.weight, 0);
   const perHundredWords = (totalWeight / wordCount) * 100;
   return Math.min(100, Math.round(perHundredWords * 10));
+}
+
+/** Returns only the tells whose category is not in `disabled`. */
+export function excludeCategories(tells: Tell[], disabled: ReadonlySet<TellCategory>): Tell[] {
+  if (disabled.size === 0) return tells;
+  return tells.filter((tell) => !disabled.has(tell.category));
 }
 
 export function analyze(text: string, tells: Tell[] = allTells): AnalysisResult {
