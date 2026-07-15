@@ -86,10 +86,10 @@ Story 1.1 is the wow moment and must land first.
 - [ ] After a successful copy, the control shows a confirmed state (e.g.
       "Copied!") for at least 1.5 seconds before reverting.
 
-### [ ] 3.3 Sample text loader
-- [ ] A "try an example" control offers at least 2 preset sample
+### [x] 3.3 Sample text loader
+- [x] A "try an example" control offers at least 2 preset sample
       paragraphs and loads the chosen one into the editor on selection.
-- [ ] Loading a sample immediately triggers highlighting and a meter
+- [x] Loading a sample immediately triggers highlighting and a meter
       update with no further user action required.
 
 ### [ ] 3.4 Design polish: control states
