@@ -204,7 +204,14 @@ function render(): void {
   });
 
   input.addEventListener("scroll", () => {
-    backdrop.scrollTop = input.scrollTop;
+    // Sync by ratio, not raw pixels: the textarea's native scrollbar can
+    // make its content box a few px narrower than the backdrop div's,
+    // producing a slightly different scrollHeight that drifts out of
+    // alignment near the bottom if copied 1:1.
+    const maxInputScroll = input.scrollHeight - input.clientHeight;
+    const maxBackdropScroll = backdrop.scrollHeight - backdrop.clientHeight;
+    const ratio = maxInputScroll > 0 ? input.scrollTop / maxInputScroll : 0;
+    backdrop.scrollTop = maxBackdropScroll > 0 ? ratio * maxBackdropScroll : 0;
     backdrop.scrollLeft = input.scrollLeft;
     hideTooltip();
   });
