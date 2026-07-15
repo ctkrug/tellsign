@@ -56,9 +56,9 @@ Story 1.1 is the wow moment and must land first.
       one sentence plus the start of the next never concatenates into a
       phrase match).
 
-### [ ] 2.3 Category weighting review
-- [ ] Every `TellCategory` has at least 3 corpus entries.
-- [ ] A snapshot test asserts a curated "obviously AI-styled" sample
+### [x] 2.3 Category weighting review
+- [x] Every `TellCategory` has at least 3 corpus entries.
+- [x] A snapshot test asserts a curated "obviously AI-styled" sample
       paragraph scores at least 2x higher than a curated "obviously plain
       human" sample paragraph of similar length.
 
