@@ -1,8 +1,9 @@
 import "./styles/tokens.css";
 import "./styles/app.css";
-import { analyze } from "./analyze";
+import { analyze, excludeCategories } from "./analyze";
 import { renderHighlights } from "./render";
 import { allTells, type TellCategory } from "./data";
+import { loadDisabledCategories, saveDisabledCategories, type KeyValueStorage } from "./storage";
 
 const CATEGORY_LABELS: Record<TellCategory, string> = {
   "inflated-verb": "Inflated verb",
@@ -17,13 +18,38 @@ const PLACEHOLDER = `Paste a paragraph here to see it marked up.
 
 Try something like: "In today's fast-paced world, it's important to note that we must delve into this topic. Furthermore, this solution boasts a seamless, robust design that will elevate your workflow."`;
 
-function buildLegend(): string {
+/** Falls back to an in-memory store if localStorage is unavailable (privacy mode, etc). */
+function getStorage(): KeyValueStorage {
+  try {
+    const probeKey = "__tellsign_probe__";
+    window.localStorage.setItem(probeKey, "1");
+    window.localStorage.removeItem(probeKey);
+    return window.localStorage;
+  } catch {
+    const memory = new Map<string, string>();
+    return {
+      getItem: (key) => memory.get(key) ?? null,
+      setItem: (key, value) => {
+        memory.set(key, value);
+      },
+    };
+  }
+}
+
+function buildLegend(disabled: ReadonlySet<TellCategory>): string {
   const categories = Array.from(new Set(allTells.map((t) => t.category)));
   return categories
     .map((category) => {
       const maxWeight = Math.max(...allTells.filter((t) => t.category === category).map((t) => t.weight));
       const swatchClass = maxWeight >= 3 ? "tell-strong" : maxWeight === 2 ? "tell-medium" : "tell";
-      return `<li class="legend-item"><span class="legend-swatch ${swatchClass}"></span>${CATEGORY_LABELS[category]}</li>`;
+      const checked = disabled.has(category) ? "" : "checked";
+      return `<li class="legend-item">
+        <label class="legend-toggle">
+          <input type="checkbox" class="legend-checkbox" data-category="${category}" ${checked} />
+          <span class="legend-swatch ${swatchClass}"></span>
+          ${CATEGORY_LABELS[category]}
+        </label>
+      </li>`;
     })
     .join("");
 }
@@ -31,6 +57,9 @@ function buildLegend(): string {
 function render(): void {
   const app = document.querySelector<HTMLDivElement>("#app");
   if (!app) return;
+
+  const storage = getStorage();
+  const disabled = loadDisabledCategories(storage);
 
   app.innerHTML = `
     <header class="header">
@@ -62,7 +91,7 @@ function render(): void {
         </div>
         <div class="meter-card">
           <div class="meter-label">Tell categories</div>
-          <ul class="legend">${buildLegend()}</ul>
+          <ul class="legend" id="legend">${buildLegend(disabled)}</ul>
         </div>
       </aside>
     </main>
@@ -72,11 +101,13 @@ function render(): void {
   const backdrop = app.querySelector<HTMLDivElement>("#backdrop")!;
   const meterFill = app.querySelector<HTMLDivElement>("#meter-fill")!;
   const meterReadout = app.querySelector<HTMLDivElement>("#meter-readout")!;
+  const legend = app.querySelector<HTMLUListElement>("#legend")!;
 
   let debounceHandle: ReturnType<typeof setTimeout> | undefined;
 
   function update(): void {
-    const result = analyze(input.value);
+    const activeTells = excludeCategories(allTells, disabled);
+    const result = analyze(input.value, activeTells);
     backdrop.innerHTML = renderHighlights(input.value, result.matches);
     meterFill.style.width = `${result.score}%`;
     meterReadout.textContent = String(result.score);
@@ -85,6 +116,19 @@ function render(): void {
   input.addEventListener("input", () => {
     clearTimeout(debounceHandle);
     debounceHandle = setTimeout(update, 120);
+  });
+
+  legend.addEventListener("change", (event) => {
+    const checkbox = event.target;
+    if (!(checkbox instanceof HTMLInputElement) || !checkbox.dataset.category) return;
+    const category = checkbox.dataset.category as TellCategory;
+    if (checkbox.checked) {
+      disabled.delete(category);
+    } else {
+      disabled.add(category);
+    }
+    saveDisabledCategories(storage, disabled);
+    update();
   });
 
   input.addEventListener("scroll", () => {
