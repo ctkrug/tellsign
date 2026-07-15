@@ -19,8 +19,9 @@ export function renderHighlights(text: string, matches: Match[]): string {
   for (const match of matches) {
     if (match.start < cursor) continue;
     html += escapeHtml(text.slice(cursor, match.start));
-    const label = `${match.tell.category}: ${match.tell.explanation}`;
-    html += `<mark class="tell ${severityClass(match.tell.weight)}" title="${escapeHtml(label)}">${escapeHtml(
+    html += `<mark class="tell ${severityClass(match.tell.weight)}" data-category="${escapeHtml(
+      match.tell.category,
+    )}" data-explanation="${escapeHtml(match.tell.explanation)}">${escapeHtml(
       text.slice(match.start, match.end),
     )}</mark>`;
     cursor = match.end;

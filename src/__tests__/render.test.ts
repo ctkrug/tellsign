@@ -21,6 +21,14 @@ describe("renderHighlights", () => {
     expect(html).toContain(">delve</mark>");
   });
 
+  it("carries the category and explanation as data attributes for the tooltip", () => {
+    const text = "Let's delve in.";
+    const matches: Match[] = [{ tell: delve, start: 6, end: 11, matchedText: "delve" }];
+    const html = renderHighlights(text, matches);
+    expect(html).toContain('data-category="inflated-verb"');
+    expect(html).toContain('data-explanation="test reason"');
+  });
+
   it("escapes HTML-significant characters in the surrounding text", () => {
     const text = "<script>delve</script>";
     const matches: Match[] = [{ tell: delve, start: 8, end: 13, matchedText: "delve" }];
