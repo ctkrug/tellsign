@@ -16,17 +16,24 @@ Story 1.1 is the wow moment and must land first.
 - [ ] The AI-osity meter fill and numeric readout update to reflect the
       current text any time the matches change.
 
-### [ ] 1.2 Scroll-synced overlay correctness
-- [ ] Scrolling the textarea keeps highlighted marks visually aligned with
+### [x] 1.2 Scroll-synced overlay correctness
+- [x] Scrolling the textarea keeps highlighted marks visually aligned with
       the underlying text at the top, middle, and bottom of a long paste.
-- [ ] Dragging the textarea's resize handle does not desync the backdrop
-      from the input (checked at at least one resized height).
+      Verified with a headless-browser check driving real scroll events on
+      a 40-paragraph paste; fixed a real drift bug (see fix commit
+      f878058) where 1:1 pixel-copied scrollTop drifted a few px out of
+      sync near the bottom because the textarea and backdrop div have
+      slightly different content-box widths (native scrollbar). Switched
+      to ratio-based sync so both ends always line up exactly.
+- [x] Dragging the textarea's resize handle does not desync the backdrop
+      from the input (checked at at least one resized height). Verified
+      by resizing the input and re-checking scroll alignment.
 
-### [ ] 1.3 Non-overlapping match resolution
-- [ ] When two tell matches overlap (e.g. a flagged phrase containing a
+### [x] 1.3 Non-overlapping match resolution
+- [x] When two tell matches overlap (e.g. a flagged phrase containing a
       separately flagged word), the render shows exactly one mark for that
       span, not a corrupted or duplicated one.
-- [ ] The highlighted backdrop's plain-text content (marks stripped) is
+- [x] The highlighted backdrop's plain-text content (marks stripped) is
       character-for-character identical to the raw textarea value.
 
 ### [ ] 1.4 Design polish: manuscript and meter surfaces
