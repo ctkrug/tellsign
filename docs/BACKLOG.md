@@ -80,10 +80,10 @@ Story 1.1 is the wow moment and must land first.
 - [x] Category toggle state persists across a page reload via
       `localStorage`.
 
-### [ ] 3.2 Shareable summary
-- [ ] A "copy summary" control copies a plain-text tally (overall score
+### [x] 3.2 Shareable summary
+- [x] A "copy summary" control copies a plain-text tally (overall score
       plus a per-category match count) to the clipboard.
-- [ ] After a successful copy, the control shows a confirmed state (e.g.
+- [x] After a successful copy, the control shows a confirmed state (e.g.
       "Copied!") for at least 1.5 seconds before reverting.
 
 ### [x] 3.3 Sample text loader
@@ -92,11 +92,11 @@ Story 1.1 is the wow moment and must land first.
 - [x] Loading a sample immediately triggers highlighting and a meter
       update with no further user action required.
 
-### [ ] 3.4 Design polish: control states
-- [ ] Every interactive control added in this epic (checkboxes, copy
+### [x] 3.4 Design polish: control states
+- [x] Every interactive control added in this epic (checkboxes, copy
       button, sample picker) has themed hover, focus-visible, active, and
       disabled states — none render as an unstyled native widget.
-- [ ] All new touch targets are at least 44x44px.
+- [x] All new touch targets are at least 44x44px.
 
 ## Epic 4 — Landing page and accessibility
 
