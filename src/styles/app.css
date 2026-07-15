@@ -307,6 +307,12 @@ button {
   transform: translateY(1px);
 }
 
+.sample-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
 .copy-btn {
   width: 100%;
   min-height: 44px;
@@ -342,4 +348,15 @@ button {
 
 .copy-btn-error {
   background: var(--danger);
+}
+
+.copy-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+  transform: none;
+}
+
+.legend-checkbox:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
 }
