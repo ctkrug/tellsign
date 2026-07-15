@@ -41,10 +41,10 @@ Story 1.1 is the wow moment and must land first.
 
 ## Epic 2 — Corpus depth and accuracy
 
-### [ ] 2.1 Expand the tell corpus to 80-100 curated entries
-- [ ] `src/data/tells-words.ts` and `src/data/tells-phrases.ts` combined
+### [x] 2.1 Expand the tell corpus to 80-100 curated entries
+- [x] `src/data/tells-words.ts` and `src/data/tells-phrases.ts` combined
       contain at least 80 entries.
-- [ ] Every entry has a non-placeholder `explanation` of at least 40
+- [x] Every entry has a non-placeholder `explanation` of at least 40
       characters that names the specific pattern, not a generic "AI-sounding
       phrase" filler.
 
