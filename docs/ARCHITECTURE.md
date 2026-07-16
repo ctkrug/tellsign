@@ -87,7 +87,16 @@ deliberately **not** individually keyboard-focusable: a long paste can
 produce dozens of matches, and tabbing through each one would wreck the
 "sane tab order" the a11y pass requires for the textarea/toggles/copy/
 sample controls. Keyboard users get the same information non-visually via
-the meter's live region (below) and the legend.
+the meter's live region (below) and the legend. Because it's purely a
+visual/touch convenience with a non-visual equivalent already covered,
+`#tooltip` carries `aria-hidden="true"` rather than a `role="tooltip"` —
+an empty, name-less `role="tooltip"` node at rest is itself an a11y
+violation (caught by an axe-core audit during QA).
+
+The tooltip prefers positioning above the mark, but flips below it when
+there isn't room between the mark and the page header's actual bottom
+edge (`showTooltip` in `main.ts`) — otherwise a mark on the manuscript's
+first line renders the tooltip on top of the header.
 
 ## Accessibility
 
@@ -129,6 +138,9 @@ produces a single deployable output directory.
 - `npm test` — Vitest (all logic in `analyze.ts`/`render.ts`/`summary.ts`/
   `storage.ts`/`data/` is pure and unit-tested; `main.ts`'s DOM wiring is
   not covered by the automated suite — verify interactively in a browser).
+- `npm run test:coverage` — Vitest with v8 coverage (`vitest.config.ts`
+  scopes the report to the pure logic modules above: 100% lines as of the
+  last QA pass).
 - `npm run typecheck` — `tsc -b --noEmit`.
 - `npm run build` — outputs a static, relative-path bundle to `dist/`,
   deployable at any subpath (`base: "./"` in `vite.config.ts`).
