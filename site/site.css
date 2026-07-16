@@ -1,0 +1,260 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  line-height: 1.6;
+  background-image: radial-gradient(circle at 1px 1px, rgba(33, 28, 21, 0.045) 1px, transparent 0);
+  background-size: 14px 14px;
+}
+
+h1,
+h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin: 0;
+}
+
+a {
+  color: var(--accent);
+}
+
+.page {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: var(--space-6);
+}
+
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--surface-2);
+}
+
+.wordmark {
+  font-size: 1.75rem;
+  letter-spacing: -0.01em;
+}
+
+.wordmark .mark {
+  position: relative;
+}
+
+.wordmark .mark svg {
+  position: absolute;
+  left: 0;
+  bottom: -0.1em;
+  width: 100%;
+  height: 0.2em;
+  overflow: visible;
+}
+
+.wordmark .mark svg path {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 80;
+  stroke-dashoffset: 80;
+  animation: draw-underline 500ms ease-out 200ms forwards;
+}
+
+@keyframes draw-underline {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.cta-btn {
+  display: inline-block;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius);
+  background: var(--accent);
+  color: var(--surface-1);
+  font-family: var(--font-ui);
+  font-weight: 600;
+  text-decoration: none;
+  line-height: 44px;
+  box-shadow: var(--shadow-paper);
+  transition: background var(--motion-ui), transform var(--motion-ui);
+}
+
+.cta-btn:hover {
+  background: color-mix(in srgb, var(--accent) 85%, black);
+}
+
+.cta-btn:focus-visible {
+  outline: 2px solid var(--accent-support-ink);
+  outline-offset: 2px;
+}
+
+.cta-btn:active {
+  transform: translateY(1px);
+}
+
+.cta-btn-large {
+  font-size: 1.05rem;
+  padding: var(--space-3) var(--space-6);
+  line-height: 1.2;
+}
+
+.hero {
+  padding: var(--space-16) 0 var(--space-12);
+  min-height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: var(--space-6);
+}
+
+.eyebrow {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+}
+
+.pitch {
+  margin: 0;
+  max-width: 62ch;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.1rem + 1.6vw, 2.25rem);
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.pitch-mark {
+  border-bottom: 3px solid var(--accent);
+}
+
+.manifesto {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+  padding: var(--space-12) 0;
+  border-top: 1px solid var(--surface-2);
+}
+
+.manifesto-block {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  gap: var(--space-4);
+}
+
+.manifesto-mark {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  color: var(--accent-support-ink);
+}
+
+.manifesto-block h2 {
+  font-size: 1.35rem;
+  margin-bottom: var(--space-2);
+}
+
+.manifesto-block p {
+  margin: 0;
+  max-width: 68ch;
+  color: var(--text);
+}
+
+.preview {
+  padding: var(--space-8) 0;
+}
+
+.preview-card {
+  background: var(--surface-1);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-paper);
+  padding: var(--space-6);
+}
+
+.preview-label {
+  margin: 0 0 var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+}
+
+.preview-text {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 70ch;
+}
+
+.tell {
+  background: color-mix(in srgb, var(--accent-support) 18%, transparent);
+  border-radius: 2px;
+  border-bottom: 2px solid var(--accent-support-ink);
+}
+
+.tell-strong {
+  background: color-mix(in srgb, var(--accent) 18%, transparent);
+  border-bottom-color: var(--accent);
+}
+
+.tell-medium {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  border-bottom-color: var(--accent);
+}
+
+.final-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-4);
+  padding: var(--space-12) 0;
+  border-top: 1px solid var(--surface-2);
+}
+
+.site-footer {
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--surface-2);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wordmark .mark svg path {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: var(--space-4);
+  }
+
+  .hero {
+    padding: var(--space-8) 0;
+    min-height: 0;
+  }
+
+  .manifesto-block {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
+  }
+}
