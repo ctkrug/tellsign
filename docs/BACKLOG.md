@@ -117,25 +117,45 @@ Story 1.1 is the wow moment and must land first.
 
 ## Epic 4 — Landing page and accessibility
 
-### [ ] 4.1 Landing/share page
-- [ ] `site/` contains a static landing page that states the "honest style
+### [x] 4.1 Landing/share page
+- [x] `site/` contains a static landing page that states the "honest style
       checker, not a black-box detector" pitch before any tool UI, using
-      the same tokens and type pairing as `docs/DESIGN.md`.
-- [ ] The landing page links to the live tool and includes the favicon and
-      wordmark consistent with the app — a reviewer should not be able to
-      tell the landing page and the app were built separately.
+      the same tokens and type pairing as `docs/DESIGN.md`. It's a second,
+      JS-free Vite entry (`vite.config.ts`) built to `dist/site/` alongside
+      the app in one `npm run build`.
+- [x] The landing page links to the live tool (hero + final CTA, both
+      `../index.html`) and includes the favicon and wordmark consistent
+      with the app; the app's header now links back ("What is this?" →
+      `./site/`) so the two read as one product, not two builds.
 
-### [ ] 4.2 Accessibility pass
-- [ ] Every interactive control (textarea, category toggles, copy button,
+### [x] 4.2 Accessibility pass
+- [x] Every interactive control (textarea, category toggles, copy button,
       sample picker) is reachable and operable via keyboard alone, in a
-      sane tab order.
-- [ ] Icon-only buttons (if any) carry an `aria-label`; the meter readout
-      updates are announced via a live region.
+      sane tab order. Verified with a headless-browser check driving 14
+      sequential Tab presses at 1440px: header link → textarea → 6
+      category checkboxes → 2 sample buttons → copy button → wraps to
+      body/header, all native elements so no extra wiring was needed.
+      Individual `.tell` marks are deliberately left out of the tab order
+      (see `docs/ARCHITECTURE.md` Tooltip section) — making every match in
+      a long paste a tab stop would break this same sane-order requirement
+      for the controls actually listed above.
+- [x] No icon-only buttons exist in this build (every control has visible
+      text), so no `aria-label` gap there. The meter readout is announced
+      via a new `#meter-live` `aria-live="polite"` region driven by
+      `describeScore()` (`src/a11y.ts`, unit-tested) — verified by typing
+      into the textarea headlessly and reading the live region's updated
+      text.
 
-### [ ] 4.3 Design polish: brand consistency across app and landing page
-- [ ] The landing page and the app pass the D4 ship-gate checklist from
-      the shared design standard (no anti-generic bans present, favicon
-      present, hero content fills the viewport on both pages).
-- [ ] Both light rendering (the only treatment planned) honor
-      `prefers-color-scheme: dark` by not producing a jarring pure-white
-      flash — verified by toggling OS color scheme and reloading.
+### [x] 4.3 Design polish: brand consistency across app and landing page
+- [x] The landing page and the app pass the D4 ship-gate checklist:
+      no anti-generic bans (no gray-card-with-emoji rows, no system-font
+      or unstyled-control fallback), a generated favicon (not the default
+      globe) on both pages, and the hero content fills the viewport on
+      both (checked at 390/768/1440 — no horizontal scroll, no dead
+      margins, screenshots reviewed at all three).
+- [x] Both pages set `color-scheme: light` (`tokens.css`, and a matching
+      `<meta name="color-scheme">` on `site/index.html`), so a dark OS
+      preference doesn't auto-invert native form controls/scrollbars
+      against the paper palette. Verified with a headless browser launched
+      with `colorScheme: 'dark'`: computed `body` background stayed the
+      cream `--bg` value, no white flash.
