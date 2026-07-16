@@ -55,11 +55,13 @@ and owns the majority of the viewport.
   the AI-osity meter rendered as a vertical tally/gauge at the top, then a
   legend of tell categories with color keys, updating live as matches
   accumulate. The margin column reads like a copy editor's sidebar notes.
-- **Phone (390×844):** single column. Manuscript surface first and full
-  width, meter collapses to a horizontal bar pinned under the header (still
-  visible while scrolling the text via a small sticky readout), category
-  legend moves below the manuscript as a expandable "what got flagged"
-  list.
+- **Phone (390×844):** single column, in DOM order: manuscript surface
+  first and full width, then the AI-osity meter card, then the tell
+  category legend, samples, and share — the same margin-column cards as
+  desktop, just stacked. (As-built simplification: the original plan
+  called for a sticky mini-meter pinned under the header while scrolling;
+  descoped as a nice-to-have that isn't required for a usable, unbroken
+  phone layout — the meter is one scroll away, not hidden.)
 - No dead space: the paper card fills the available column; the page
   background carries a subtle grain/texture treatment so cream doesn't read
   as a flat empty void behind the card.
