@@ -136,6 +136,7 @@ function render(): void {
   const sampleButtons = app.querySelector<HTMLDivElement>("#samples")!;
   const copyButton = app.querySelector<HTMLButtonElement>("#copy-summary")!;
   const tooltip = app.querySelector<HTMLDivElement>("#tooltip")!;
+  const header = app.querySelector<HTMLElement>(".header")!;
 
   let debounceHandle: ReturnType<typeof setTimeout> | undefined;
   let copyResetHandle: ReturnType<typeof setTimeout> | undefined;
@@ -165,7 +166,12 @@ function render(): void {
     const tooltipRect = tooltip.getBoundingClientRect();
     const left = Math.max(8, Math.min(markRect.left, window.innerWidth - tooltipRect.width - 8));
     tooltip.style.left = `${left}px`;
-    tooltip.style.top = `${Math.max(8, markRect.top - tooltipRect.height - 8)}px`;
+    // Prefer above the mark; flip below it when a mark near the top of the
+    // manuscript (e.g. its very first word) would otherwise push the
+    // tooltip up over the header instead of just the viewport edge.
+    const minTop = header.getBoundingClientRect().bottom + 8;
+    const above = markRect.top - tooltipRect.height - 8;
+    tooltip.style.top = `${above >= minTop ? above : markRect.bottom + 8}px`;
   }
 
   function hideTooltip(): void {
