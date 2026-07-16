@@ -63,6 +63,16 @@ describe("renderHighlights", () => {
     expect(html.match(/<mark/g)?.length).toBe(1);
   });
 
+  it("renders a match that starts exactly where the previous one ends (touching, not overlapping)", () => {
+    const text = "delverobust";
+    const matches: Match[] = [
+      { tell: delve, start: 0, end: 5, matchedText: "delve" },
+      { tell: delve, start: 5, end: 11, matchedText: "robust" },
+    ];
+    const html = renderHighlights(text, matches);
+    expect(html.match(/<mark/g)?.length).toBe(2);
+  });
+
   it("does not make individual marks keyboard-focusable", () => {
     const text = "Let's delve in.";
     const matches: Match[] = [{ tell: delve, start: 6, end: 11, matchedText: "delve" }];
