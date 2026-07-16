@@ -80,6 +80,30 @@ a {
   }
 }
 
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.nav-link {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--motion-ui);
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.nav-link:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
 .cta-btn {
   display: inline-block;
   min-height: 44px;
@@ -234,6 +258,14 @@ a {
   border-top: 1px solid var(--surface-2);
   color: var(--text-muted);
   font-size: 0.9rem;
+}
+
+.site-footer p {
+  margin: 0 0 var(--space-2);
+}
+
+.portfolio-link {
+  color: var(--text-muted);
 }
 
 @media (prefers-reduced-motion: reduce) {

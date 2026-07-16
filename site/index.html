@@ -5,22 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#f3ecdd" />
-    <title>Tellsign — an honest style checker, not a black-box AI detector</title>
+    <title>Tellsign — the words ChatGPT overuses, highlighted in your text</title>
     <meta
       name="description"
-      content="Tellsign highlights the specific words and phrasing patterns documented as LLM writing tells, live, with a transparent AI-osity meter — no probability score, no black box."
+      content="Paste your writing and Tellsign highlights the words ChatGPT overuses and the phrasing that reads as AI, each with the reason it stands out. Not a black-box score."
     />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Tellsign — an honest style checker, not a black-box AI detector" />
+    <meta property="og:title" content="Tellsign — the words ChatGPT overuses, highlighted in your text" />
     <meta
       property="og:description"
-      content="Paste text and watch documented LLM writing tells light up live, each with a plain-language reason — a transparent style checker, not a probability score."
+      content="Paste text and watch the documented ChatGPT tells light up live, each with a plain-language reason. A transparent style checker, not a probability score."
     />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Tellsign — an honest style checker, not a black-box AI detector" />
+    <meta name="twitter:title" content="Tellsign — the words ChatGPT overuses, highlighted in your text" />
     <meta
       name="twitter:description"
-      content="Paste text and watch documented LLM writing tells light up live, each with a plain-language reason — a transparent style checker, not a probability score."
+      content="Paste text and watch the documented ChatGPT tells light up live, each with a plain-language reason. A transparent style checker, not a probability score."
     />
     <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
     <link rel="stylesheet" href="../src/styles/tokens.css" />
@@ -36,18 +36,22 @@
             </svg>
           </span>
         </h1>
-        <a class="cta-btn" href="../index.html">Open Tellsign →</a>
+        <nav class="site-nav">
+          <a class="nav-link" href="https://github.com/ctkrug/tellsign">GitHub</a>
+          <a class="cta-btn" href="../index.html">Open Tellsign →</a>
+        </nav>
       </header>
 
       <main>
         <section class="hero">
           <p class="eyebrow">An honest style checker</p>
           <p class="pitch">
-            Not a black-box AI detector. Paste your text and watch the exact
-            words and phrasing patterns known as GPT-era tells light up
-            <span class="pitch-mark">as you type</span> — each one with a
-            plain-language reason it's flagged, and a transparent AI-osity
-            meter built from math you can read the source for.
+            Your draft "sounds like ChatGPT," but you can't say which words are
+            doing it. Paste it here and the exact words and phrasings known as
+            AI tells light up
+            <span class="pitch-mark">as you type</span>, each with a
+            plain-language reason and a transparent AI-osity meter you can read
+            the source for.
           </p>
           <a class="cta-btn cta-btn-large" href="../index.html">Try it on your own writing →</a>
         </section>
@@ -59,11 +63,11 @@
               <h2>The problem with "87% AI"</h2>
               <p>
                 Most detectors output a probability with no explanation. A
-                number like that gives you nothing to act on — you can't tell
-                if it's right, can't tell what tripped it, and can't push
-                back on a specific claim. Worse, these tools are frequently
-                wrong in ways that matter, and because the reasoning is
-                hidden, nobody can check their work.
+                number like that gives you nothing to act on. You can't tell if
+                it's right, can't tell what tripped it, and can't push back on a
+                specific claim. Worse, these tools are frequently wrong in ways
+                that matter, and because the reasoning is hidden, nobody can
+                check their work.
               </p>
             </div>
           </article>
@@ -74,25 +78,23 @@
               <p>
                 GPT-era prose has a recognizable style: words like "delve,"
                 phrases like "it's important to note," the rule-of-three
-                cadence, throat-clearing hedges. That's real and observable —
-                just not proof of authorship. Tellsign is a curated,
-                inspectable corpus of those patterns, matched with plain
-                regex, in your browser. No model call, no network request
-                after the page loads.
+                cadence, throat-clearing hedges. That's real and observable, but
+                it isn't proof of authorship. Tellsign is a curated, inspectable
+                corpus of those patterns, matched with plain regex, in your
+                browser. No model call, no network request after the page loads.
               </p>
             </div>
           </article>
           <article class="manifesto-block">
             <span class="manifesto-mark">03</span>
             <div>
-              <h2>Who it's for — and who it isn't</h2>
+              <h2>Who it's for, and who it isn't</h2>
               <p>
-                Writers, editors, and anyone curious about their own prose
-                who wants a concrete, inspectable style check instead of a
-                verdict. It's <em>not</em> built for academic-integrity
-                enforcement or hiring screens — a curated word list can't
-                support that kind of high-stakes decision, and Tellsign
-                won't pretend otherwise.
+                Writers, editors, and anyone curious about their own prose who
+                wants a concrete, inspectable style check instead of a verdict.
+                It is <em>not</em> built for academic-integrity enforcement or
+                hiring screens. A curated word list can't support that kind of
+                high-stakes decision, and Tellsign won't pretend otherwise.
               </p>
             </div>
           </article>
@@ -125,6 +127,7 @@
 
       <footer class="site-footer">
         <p>Tellsign is a style checker, not a verdict. <a href="../index.html">Open the tool</a></p>
+        <p class="portfolio-link">More by Charlie Krug → <a href="https://apps.charliekrug.com">apps.charliekrug.com</a></p>
       </footer>
     </div>
   </body>
