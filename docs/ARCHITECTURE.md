@@ -97,6 +97,14 @@ the meter's live region (below) and the legend.
   updated on every `update()` with `describeScore()` (`src/a11y.ts`) — a
   full sentence ("AI-osity 42 out of 100 — 7 tells found in 150 words."),
   independent of the compact visible `#meter-readout` digit.
+- `#meter-track` carries `role="progressbar"` + `aria-valuenow`, updated
+  alongside the live region, so assistive tech can also query the current
+  score on demand rather than only hearing it announced on change.
+- `#copy-summary` has `aria-live="polite"` directly on the button so its
+  "Copied!"/"Copy failed" text change is reliably announced.
+- The sidebar's section labels ("AI-osity", "Tell categories", "Try an
+  example", "Share") are `<h2>` elements, not styled `div`s, so
+  heading-based screen reader navigation actually lands on them.
 - `:root { color-scheme: light }` (`tokens.css`) stops browsers with a
   dark OS preference from auto-darkening native form controls/scrollbars
   against the paper palette.
