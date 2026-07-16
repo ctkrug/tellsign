@@ -118,6 +118,16 @@ first line renders the tooltip on top of the header.
   dark OS preference from auto-darkening native form controls/scrollbars
   against the paper palette.
 
+## Below-the-fold copy on the tool page (`index.html`)
+
+The tool page is the indexed live URL, so `index.html` carries a static
+explainer + FAQ section and a repo/portfolio footer *after* `<div id="app">`,
+outside the element `main.ts` owns (it only ever writes `#app.innerHTML`, so
+this content is never clobbered). It answers the search queries people arrive
+on (which words an LLM overuses, whether text sounds like AI) and is styled by
+the `.explainer`/`.faq`/`.app-footer` rules in `app.css`. The app header also
+links to the GitHub source alongside the "What is this?" link.
+
 ## Landing page (`site/`)
 
 `site/index.html` + `site/site.css` are a separate, static, JS-free page
