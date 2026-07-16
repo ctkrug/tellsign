@@ -91,7 +91,7 @@ function render(): void {
       <div class="tell-tooltip" id="tooltip" role="tooltip"></div>
       <aside class="sidebar">
         <div class="meter-card">
-          <div class="meter-label">AI-osity</div>
+          <h2 class="meter-label">AI-osity</h2>
           <div
             class="meter-track"
             id="meter-track"
@@ -107,11 +107,11 @@ function render(): void {
           <div class="sr-only" id="meter-live" aria-live="polite" aria-atomic="true"></div>
         </div>
         <div class="meter-card">
-          <div class="meter-label">Tell categories</div>
+          <h2 class="meter-label">Tell categories</h2>
           <ul class="legend" id="legend">${buildLegend(disabled)}</ul>
         </div>
         <div class="meter-card">
-          <div class="meter-label">Try an example</div>
+          <h2 class="meter-label">Try an example</h2>
           <div class="sample-buttons" id="samples">
             ${samples
               .map((sample) => `<button type="button" class="sample-btn" data-sample="${sample.id}">${sample.label}</button>`)
@@ -119,7 +119,7 @@ function render(): void {
           </div>
         </div>
         <div class="meter-card">
-          <div class="meter-label">Share</div>
+          <h2 class="meter-label">Share</h2>
           <button type="button" class="copy-btn" id="copy-summary" aria-live="polite">Copy summary</button>
         </div>
       </aside>
