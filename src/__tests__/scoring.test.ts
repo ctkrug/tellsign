@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { analyze } from "../analyze";
+import { renderHighlights } from "../render";
 
 const AI_STYLED_SAMPLE = `In today's fast-paced world, it's important to note that businesses
 must delve into emerging technology. This platform boasts a robust,
@@ -29,5 +30,19 @@ describe("scoring realism", () => {
     expect(human.score).toBeLessThanOrEqual(10);
     expect(ai.score).toBeGreaterThanOrEqual(50);
     expect(ai.score).toBeGreaterThanOrEqual(human.score * 2);
+  });
+});
+
+describe("performance", () => {
+  it("analyzes and renders a very large paste well within one debounce interval", () => {
+    // Regression guard against an accidental quadratic-time change to the
+    // matcher or renderer — a real paste this large (~200k chars) should
+    // stay far under the 120ms input debounce, with generous headroom for
+    // slower CI hardware.
+    const bigText = AI_STYLED_SAMPLE.repeat(400);
+    const start = performance.now();
+    const result = analyze(bigText);
+    renderHighlights(bigText, result.matches);
+    expect(performance.now() - start).toBeLessThan(3000);
   });
 });
