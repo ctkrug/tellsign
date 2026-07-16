@@ -1,82 +1,93 @@
 # Tellsign
 
-Paste any text and watch it highlight the specific words and phrasing patterns
-documented as LLM writing tells — live, in the browser, with an "AI-osity"
-meter that fills as tells accumulate.
+**▶ Live demo — [apps.charliekrug.com/tellsign](https://apps.charliekrug.com/tellsign/)**
 
-Tellsign is **not** a black-box AI detector. It doesn't claim to know whether
-a paragraph was written by a model. It's a transparent style checker: every
-highlighted word or phrase comes with a plain-language reason it's flagged,
-drawn from a curated, inspectable corpus. No model call, no probability
-score pretending to be a fact — just pattern matching you can read the source
-for.
+See which words make your writing sound like AI. Paste a paragraph and the
+specific words and phrasings documented as ChatGPT tells light up in place, live,
+each with a plain-language reason and a running "AI-osity" meter.
 
-## Why
+[![CI](https://github.com/ctkrug/tellsign/actions/workflows/ci.yml/badge.svg)](https://github.com/ctkrug/tellsign/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-b3261e.svg)](LICENSE)
 
-"AI detector" tools sell certainty they can't back up — a percentage with no
-explanation, trained on data nobody can inspect, wrong often enough to ruin
-someone's day. Meanwhile, actual GPT-era prose has real, nameable tells:
-"delve," "it's important to note," the rule-of-three cadence, throat-clearing
-hedges, em-dash overuse. Tellsign surfaces those directly. You can see
-exactly why a word lit up, decide for yourself if it's fair, and use it to
-edit your own writing — whether or not a model touched it.
+Tellsign is **not** a black-box AI detector. It doesn't claim to know whether a
+paragraph was written by a model. It's a transparent style checker: every
+highlighted word comes with the reason it's flagged, drawn from a curated,
+inspectable corpus. No model call, no probability score pretending to be a fact,
+just pattern matching you can read the source for.
+
+## Sample output
+
+Paste marketing copy and it redlines like this (crimson = strong tell, gold =
+milder):
+
+> [In today's] fast-paced world, [it's important to note] that we must [delve]
+> into this topic. This solution [boasts] a [seamless], [robust], and incredibly
+> scalable design.
+
+Every bracketed span is a documented tell. Hover any one in the live tool to see
+which category it belongs to and why it stands out.
+
+## Who it's for
+
+Writers, editors, students, and anyone whose draft "sounds like ChatGPT" but
+can't say which words are doing it. Black-box detectors give you a scary
+percentage with no explanation. Tellsign points at the actual words so you can
+cut them, whether or not a model ever touched the text. It is not built for
+academic-integrity enforcement or hiring screens, and it won't pretend a word
+list can support that kind of decision.
 
 ## What it does
 
 - Paste or type text into a live editor; matches highlight inline within a
   single debounce cycle (~120ms), no reload.
-- Hovering or tapping a highlighted span pops a tooltip naming the specific
-  tell and a plain-language reason it's flagged, drawn from an 80+ entry
-  curated corpus across six categories (inflated verbs, hedges, transition
-  crutches, rule-of-three padding, disclaimers, vague intensifiers).
-- An "AI-osity" meter fills alongside the text — a transparent tally of
-  matches weighted by tell category, never a probabilistic verdict.
-- A category legend doubles as a set of toggles: uncheck a category to drop
-  its highlights immediately, no re-typing required. The choice persists
-  across reloads.
+- Hovering or tapping a highlighted span pops a tooltip naming the specific tell
+  and a plain-language reason it's flagged, drawn from an 80+ entry curated
+  corpus across six categories: inflated verbs, hedges, transition crutches,
+  rule-of-three padding, disclaimers, and vague intensifiers.
+- An "AI-osity" meter fills alongside the text, a transparent tally of matches
+  weighted by tell category, never a probabilistic verdict.
+- A category legend doubles as a set of toggles: uncheck a category to drop its
+  highlights immediately, no re-typing. The choice persists across reloads.
 - "Try an example" loads a preset paragraph (AI-styled marketing copy vs. a
-  plain status update) to see the contrast immediately.
-- "Copy summary" copies a plain-text tally (overall score + per-category
-  match counts) to the clipboard, for sharing or roasting a suspicious post.
-- Zero network calls after page load: no model, no login, no usage limits.
-  The entire corpus and scoring logic ship in the client and are readable in
-  the repo.
+  plain status update) to see the contrast at a glance.
+- "Copy summary" copies a plain-text tally (overall score plus per-category
+  counts) to the clipboard, for sharing or roasting a suspicious post.
+- Zero network calls after page load: no model, no login, no usage limits. The
+  entire corpus and scoring logic ship in the client and are readable in the
+  repo under [`src/data/`](src/data/).
 
-## Landing page
-
-`site/` is a static, shareable page with the "honest style checker, not a
-detector" pitch, a sample redline, and a link into the live tool — built
-with the same design tokens as the app. It's linked from the app's header
-("What is this?") and built alongside `index.html` by `npm run build`.
-
-## Stack
-
-Vanilla TypeScript, no framework — built with [Vite](https://vitejs.dev/) for
-dev/build tooling, tested with [Vitest](https://vitest.dev/). Ships as a
-static site (`dist/`) with relative asset paths so it can be hosted from any
-subpath, no server required.
-
-## Development
+## Run it locally
 
 ```
 npm install
 npm run dev        # local dev server with hot reload
 npm test           # run the test suite
-npm run build      # static bundle to dist/ (app + site/)
+npm run build      # static bundle to dist/ (app + landing page)
 ```
 
-See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full command list
-(typecheck, coverage, preview) and how the codebase is organized.
+The build emits a static site with relative asset paths, so it can be hosted
+from any subpath with no server. `npm run test:coverage` runs the suite behind
+an 85% line-coverage floor on the core matching, scoring, and rendering logic.
 
-## Status
+## How it works
 
-Core highlighting, corpus, category toggles, sample loader, sharing, the
-landing page, and an accessibility pass (keyboard-reachable controls,
-live-region meter announcements, focus rings) are built and tested.
-See [`docs/VISION.md`](docs/VISION.md) for the full design rationale,
-[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for how it's built, and
-[`docs/BACKLOG.md`](docs/BACKLOG.md) for the build plan.
+`src/analyze.ts` scans text for every term in the corpus with whole-word,
+case-insensitive regex (curly and straight apostrophes both match), scores the
+matches by weight per hundred words, and `src/render.ts` wraps each hit in a
+`<mark>`, skipping overlaps. The corpus itself lives in
+[`src/data/`](src/data/) as plain, reviewable TypeScript. See
+[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full layout and
+[`docs/VISION.md`](docs/VISION.md) for the design rationale.
+
+## Stack
+
+Vanilla TypeScript, no framework. Built with [Vite](https://vitejs.dev/) and
+tested with [Vitest](https://vitest.dev/). Ships as a static site (`dist/`).
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
+MIT, see [LICENSE](LICENSE).
+
+---
+
+More of Charlie's projects → [apps.charliekrug.com](https://apps.charliekrug.com)
