@@ -59,6 +59,26 @@ describe("tell corpus", () => {
     expect(ids.some((id) => id.includes("foster"))).toBe(true);
   });
 
+  it("never has a word tell whose own explanation cites an inflected form nothing in the corpus matches", () => {
+    // Generalizes the boast/boasts and foster/fosters fixes into a
+    // standing guard: the matcher is exact whole-word by design, so any
+    // future word tell whose explanation demonstrates itself with an
+    // inflected example ("...boasts a large screen") needs either that
+    // form to be matchable too, or a different example in its prose.
+    const gaps: string[] = [];
+    for (const tell of allTells) {
+      if (tell.kind !== "word") continue;
+      for (const suffix of ["s", "ed", "ing", "es"]) {
+        const candidate = tell.term + suffix;
+        if (!new RegExp(`\\b${candidate}\\b`, "i").test(tell.explanation)) continue;
+        if (findMatches(candidate, allTells).length === 0) {
+          gaps.push(`${tell.id}: explanation uses "${candidate}" but no corpus entry matches it`);
+        }
+      }
+    }
+    expect(gaps).toEqual([]);
+  });
+
   it("never has a blank or whitespace-only term", () => {
     // An empty term compiles to a zero-width /\b\b/ pattern in
     // analyze.ts's buildPattern — findMatches guards against the
