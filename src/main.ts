@@ -88,7 +88,7 @@ function render(): void {
           ></textarea>
         </div>
       </section>
-      <div class="tell-tooltip" id="tooltip" role="tooltip"></div>
+      <div class="tell-tooltip" id="tooltip" aria-hidden="true"></div>
       <aside class="sidebar">
         <div class="meter-card">
           <h2 class="meter-label">AI-osity</h2>
