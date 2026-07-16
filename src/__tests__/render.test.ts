@@ -47,6 +47,13 @@ describe("renderHighlights", () => {
     expect(html.match(/<mark/g)?.length).toBe(1);
   });
 
+  it("does not make individual marks keyboard-focusable", () => {
+    const text = "Let's delve in.";
+    const matches: Match[] = [{ tell: delve, start: 6, end: 11, matchedText: "delve" }];
+    const html = renderHighlights(text, matches);
+    expect(html).not.toContain("tabindex");
+  });
+
   it("renders plain text unchanged when there are no matches", () => {
     const html = renderHighlights("nothing to see here", []);
     expect(html).toBe("nothing to see here\n");
