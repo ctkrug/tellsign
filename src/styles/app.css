@@ -51,6 +51,12 @@ button {
   border-bottom: 1px solid var(--surface-2);
 }
 
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
 .header-link {
   color: var(--text-muted);
   font-size: 0.9rem;

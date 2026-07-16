@@ -73,7 +73,10 @@ function render(): void {
           </svg>
         </span>
       </h1>
-      <a class="header-link" href="./site/">What is this?</a>
+      <nav class="header-nav">
+        <a class="header-link" href="https://github.com/ctkrug/tellsign">GitHub</a>
+        <a class="header-link" href="./site/">What is this?</a>
+      </nav>
     </header>
     <main class="layout">
       <section class="manuscript-card">
