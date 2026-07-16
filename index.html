@@ -5,10 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="light" />
     <meta name="theme-color" content="#f3ecdd" />
-    <title>Tellsign — see the tells in AI-sounding writing</title>
+    <title>Tellsign — the words ChatGPT overuses, highlighted in your text</title>
     <meta
       name="description"
-      content="Paste text and watch it highlight documented LLM writing tells, live — an honest style checker, not a black-box AI detector."
+      content="Paste your text and Tellsign highlights the words ChatGPT overuses and the phrasing that reads as AI, each with the reason it stands out. Not a black-box detector."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Tellsign — the words ChatGPT overuses, highlighted in your text" />
+    <meta
+      property="og:description"
+      content="A transparent style checker: paste text and the documented ChatGPT tells light up live, each with a plain-language reason. Answers 'does this sound like AI writing?'"
     />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
     <link rel="stylesheet" href="./src/styles/tokens.css" />
@@ -16,6 +22,96 @@
   </head>
   <body>
     <div id="app"></div>
+
+    <section class="explainer" aria-labelledby="explainer-title">
+      <div class="explainer-inner">
+        <h2 id="explainer-title">The words that make writing sound like AI</h2>
+        <p>
+          Large language models reach for a small, recognizable set of words far
+          more often than most people do. The words ChatGPT overuses include
+          inflated verbs like "delve," "leverage," "underscore," and "elevate";
+          filler phrasing like "it's important to note" and "in today's
+          fast-paced world"; and vague intensifiers like "incredibly" and
+          "truly." Paste any paragraph into Tellsign above and every one it finds
+          lights up in place, with a note on why it stands out.
+        </p>
+        <p>
+          Tellsign is not an AI detector. It never claims a paragraph was written
+          by a machine. It's a transparent style checker: the whole list of tells
+          and the scoring math ship in your browser and are readable in the
+          source, so you can see exactly what tripped a highlight, decide for
+          yourself whether it's fair, and edit accordingly. Nothing you paste
+          leaves the page.
+        </p>
+
+        <div class="faq">
+          <h2 class="faq-title">Questions people ask</h2>
+
+          <div class="faq-item">
+            <h3>What words does ChatGPT overuse?</h3>
+            <p>
+              The most over-represented are inflated verbs ("delve," "boast,"
+              "leverage," "underscore," "foster"), uplift words ("elevate,"
+              "unleash," "seamless," "robust"), throat-clearing openers
+              ("it's important to note," "in today's fast-paced world"), and
+              rule-of-three padding. Tellsign catches 80+ of them across six
+              categories and shows each match in context.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Does this sound like AI writing?</h3>
+            <p>
+              Tellsign won't answer that with a yes or no, because no honest tool
+              can. What it does is surface the specific tells in your text so you
+              can judge for yourself. A paragraph thick with flagged words reads
+              as machine-written to a lot of readers; one with none reads as
+              plainer and more human. The meter is a tally of those tells, not a
+              probability of authorship.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What are the AI buzzwords to avoid?</h3>
+            <p>
+              The usual buzzword list includes "leverage," "seamless,"
+              "robust," "elevate," "unlock," "empower," "harness,"
+              "cutting-edge," and "game-changing." They aren't wrong on their
+              own, but stacked together they read as generated marketing copy.
+              Tellsign flags them so you can swap in something specific.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>What are the common ChatGPT tells?</h3>
+            <p>
+              Beyond single words, the ChatGPT tells list includes the
+              rule-of-three cadence ("fast, simple, and reliable"), hedging
+              ("it's worth noting," "generally speaking"), transition crutches
+              ("furthermore," "moreover," "in conclusion"), and disclaimer
+              framing ("as an AI," "it's important to remember"). Tellsign groups
+              its corpus into exactly these categories.
+            </p>
+          </div>
+
+          <div class="faq-item">
+            <h3>Is Tellsign an AI detector?</h3>
+            <p>
+              No. Detectors output a hidden-model probability you can't inspect
+              or contest. Tellsign shows its work: every highlight names a
+              documented pattern and the reason it's flagged, and it's meant for
+              editing your own writing, not for grading or hiring decisions.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="app-footer">
+      <p><a href="https://github.com/ctkrug/tellsign">View the source on GitHub</a> · Tellsign is a style checker, not a verdict.</p>
+      <p class="portfolio-link">More by Charlie Krug → <a href="https://apps.charliekrug.com">apps.charliekrug.com</a></p>
+    </footer>
+
     <script type="module" src="./src/main.ts"></script>
   </body>
 </html>

@@ -445,3 +445,66 @@ button {
     transform: none;
   }
 }
+
+/* Below-the-fold explainer + FAQ: search-intent copy for people who arrive
+   from a query rather than a share link. Same paper palette as the tool. */
+.explainer {
+  border-top: 1px solid var(--surface-2);
+  padding: var(--space-16) var(--space-6);
+}
+
+.explainer-inner {
+  max-width: 68ch;
+  margin: 0 auto;
+}
+
+.explainer h2 {
+  font-size: 1.6rem;
+  margin-bottom: var(--space-4);
+}
+
+.explainer p {
+  margin: 0 0 var(--space-4);
+  max-width: 68ch;
+}
+
+.faq {
+  margin-top: var(--space-12);
+}
+
+.faq-title {
+  font-size: 1.3rem;
+  margin-bottom: var(--space-6);
+}
+
+.faq-item {
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--surface-2);
+}
+
+.faq-item h3 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: var(--space-2);
+}
+
+.faq-item p {
+  margin: 0;
+  color: var(--text);
+}
+
+.app-footer {
+  padding: var(--space-8) var(--space-6) var(--space-12);
+  border-top: 1px solid var(--surface-2);
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+}
+
+.app-footer p {
+  margin: 0 0 var(--space-2);
+}
+
+.app-footer .portfolio-link {
+  color: var(--text-muted);
+}
