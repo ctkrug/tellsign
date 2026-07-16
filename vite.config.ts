@@ -6,5 +6,13 @@ export default defineConfig({
   base: "./",
   build: {
     outDir: "dist",
+    rollupOptions: {
+      input: {
+        // The tool itself (unchanged entry point) plus the shareable
+        // landing page, built to dist/site/ alongside it.
+        app: "index.html",
+        site: "site/index.html",
+      },
+    },
   },
 });
