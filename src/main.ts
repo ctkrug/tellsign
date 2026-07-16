@@ -72,6 +72,7 @@ function render(): void {
           </svg>
         </span>
       </h1>
+      <a class="header-link" href="./site/">What is this?</a>
     </header>
     <main class="layout">
       <section class="manuscript-card">
