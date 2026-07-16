@@ -42,12 +42,12 @@ edit your own writing — whether or not a model touched it.
   The entire corpus and scoring logic ship in the client and are readable in
   the repo.
 
-## Planned features
+## Landing page
 
-- A landing/share page (`site/`) with the "honest style checker, not a
-  detector" pitch, using the same design system as the tool.
-- A full accessibility pass (keyboard-operable tooltips, live-region meter
-  announcements).
+`site/` is a static, shareable page with the "honest style checker, not a
+detector" pitch, a sample redline, and a link into the live tool — built
+with the same design tokens as the app. It's linked from the app's header
+("What is this?") and built alongside `index.html` by `npm run build`.
 
 ## Stack
 
@@ -58,8 +58,9 @@ subpath, no server required.
 
 ## Status
 
-Core highlighting, corpus, category toggles, sample loader, and sharing are
-built and tested. The landing page and a full accessibility pass are next.
+Core highlighting, corpus, category toggles, sample loader, sharing, the
+landing page, and an accessibility pass (keyboard-reachable controls,
+live-region meter announcements, focus rings) are built and tested.
 See [`docs/VISION.md`](docs/VISION.md) for the full design rationale,
 [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for how it's built, and
 [`docs/BACKLOG.md`](docs/BACKLOG.md) for the build plan.
