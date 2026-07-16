@@ -50,6 +50,15 @@ describe("tell corpus", () => {
     expect(ids.some((id) => id.includes("boast"))).toBe(true);
   });
 
+  it("catches 'fosters', the exact inflected form used in the shipped marketing-copy sample", () => {
+    // Same gap as "boast"/"boasts": the shipped marketing-copy preset
+    // ("it fosters a comprehensive, holistic approach") uses this
+    // inflected form, but the whole-word matcher only recognizes the
+    // bare "foster" it's keyed on.
+    const ids = findMatches("It fosters a comprehensive approach.", allTells).map((t) => t.tell.id);
+    expect(ids.some((id) => id.includes("foster"))).toBe(true);
+  });
+
   it("never has a blank or whitespace-only term", () => {
     // An empty term compiles to a zero-width /\b\b/ pattern in
     // analyze.ts's buildPattern — findMatches guards against the
