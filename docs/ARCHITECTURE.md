@@ -79,10 +79,41 @@ regardless of that difference.
 
 ## Tooltip
 
-Hover, focus-within, or `touchstart` on a `.tell` mark (delegated on
-`#backdrop`) reads `data-category`/`data-explanation` and positions a
-single `#tooltip` element (`position: fixed`, built from `getBoundingClientRect`)
-near it — a themed replacement for the native `title` attribute.
+Hover or `touchstart` on a `.tell` mark (delegated on `#backdrop`) reads
+`data-category`/`data-explanation` and positions a single `#tooltip`
+element (`position: fixed`, built from `getBoundingClientRect`) near it —
+a themed replacement for the native `title` attribute. Marks are
+deliberately **not** individually keyboard-focusable: a long paste can
+produce dozens of matches, and tabbing through each one would wreck the
+"sane tab order" the a11y pass requires for the textarea/toggles/copy/
+sample controls. Keyboard users get the same information non-visually via
+the meter's live region (below) and the legend.
+
+## Accessibility
+
+- `#input` carries an `aria-label` (the placeholder disappears on input,
+  so it isn't a reliable accessible name).
+- `#meter-live` (`aria-live="polite"`, visually hidden via `.sr-only`) is
+  updated on every `update()` with `describeScore()` (`src/a11y.ts`) — a
+  full sentence ("AI-osity 42 out of 100 — 7 tells found in 150 words."),
+  independent of the compact visible `#meter-readout` digit.
+- `:root { color-scheme: light }` (`tokens.css`) stops browsers with a
+  dark OS preference from auto-darkening native form controls/scrollbars
+  against the paper palette.
+
+## Landing page (`site/`)
+
+`site/index.html` + `site/site.css` are a separate, static, JS-free page
+carrying the "honest style checker, not a black-box detector" pitch —
+shareable on its own, and linked from the app's header ("What is this?").
+It reuses `src/styles/tokens.css` (same tokens/fonts as the app) plus a
+duplicated, minimal copy of the `.tell`/wordmark rules from `app.css` so
+it stays self-contained rather than pulling in the whole app stylesheet.
+The wordmark's underline draw-on is a CSS `@keyframes` animation here
+(vs. the app's JS-toggled class) since the page ships no script.
+`vite.config.ts` builds both `index.html` and `site/index.html` as
+separate Rollup entries into one `dist/`, so `npm run build` still
+produces a single deployable output directory.
 
 ## Running it
 
