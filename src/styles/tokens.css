@@ -13,9 +13,11 @@
   --text-muted: #6f6555;
   --accent: #b3261e;
   --accent-support: #9c7a2e;
-  /* darker gold for the mild-tell border/underline: --accent-support alone
-     caps at ~3.8:1 against the paper surfaces, short of the 4.5:1 the
-     underlined text needs (docs/BACKLOG.md 2.4) */
+  /* darker gold for text/UI that needs to sit on --accent-support:
+     --accent-support alone caps at ~3.8:1 against the paper surfaces or
+     white text, short of the 4.5:1 minimum — used for the mild-tell
+     border/underline (docs/BACKLOG.md 2.4) and the copy-summary button
+     background (caught by an axe-core audit during QA). */
   --accent-support-ink: #6d5520;
   --success: #3f6b3f;
   --danger: #b3261e;
