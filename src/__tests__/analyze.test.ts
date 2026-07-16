@@ -54,6 +54,15 @@ describe("findMatches", () => {
     const matches = findMatches(text, sampleTells);
     expect(matches.map((m) => m.tell.id)).toEqual(["its-important-to-note", "delve"]);
   });
+
+  it("matches apostrophe phrases against curly quotes too", () => {
+    // Pasted text (Word, Google Docs, iOS, many chat UIs) commonly uses a
+    // typographic right single quote (U+2019) instead of a straight one.
+    const text = "It’s important to note the deadline moved.";
+    const matches = findMatches(text, sampleTells);
+    expect(matches).toHaveLength(1);
+    expect(matches[0].tell.id).toBe("its-important-to-note");
+  });
 });
 
 describe("scoreMatches", () => {
