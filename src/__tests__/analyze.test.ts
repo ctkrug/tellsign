@@ -55,6 +55,17 @@ describe("findMatches", () => {
     expect(matches.map((m) => m.tell.id)).toEqual(["its-important-to-note", "delve"]);
   });
 
+  it("terminates instead of looping forever on a corpus entry with an empty term", () => {
+    // A malformed corpus entry (empty term) would otherwise compile to
+    // /\b\b/gi, which matches a zero-width string at every position —
+    // findMatches must advance past each one rather than re-matching the
+    // same index forever.
+    const brokenTells: Tell[] = [{ ...sampleTells[0], id: "broken", term: "" }];
+    const matches = findMatches("a short sentence to scan", brokenTells);
+    expect(matches.every((m) => m.tell.id === "broken")).toBe(true);
+    expect(matches.length).toBeLessThan(1000);
+  });
+
   it("matches apostrophe phrases against curly quotes too", () => {
     // Pasted text (Word, Google Docs, iOS, many chat UIs) commonly uses a
     // typographic right single quote (U+2019) instead of a straight one.
