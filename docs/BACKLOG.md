@@ -144,7 +144,11 @@ Story 1.1 is the wow moment and must land first.
       via a new `#meter-live` `aria-live="polite"` region driven by
       `describeScore()` (`src/a11y.ts`, unit-tested) — verified by typing
       into the textarea headlessly and reading the live region's updated
-      text.
+      text. Went further than the letter of this story: the meter also
+      carries `role="progressbar"` + `aria-valuenow`, sidebar section
+      labels are real `<h2>`s (were styled `div`s, so heading-based
+      navigation skipped them), and the copy button's own confirmation
+      text change is reliably announced via `aria-live` on the button.
 
 ### [x] 4.3 Design polish: brand consistency across app and landing page
 - [x] The landing page and the app pass the D4 ship-gate checklist:
