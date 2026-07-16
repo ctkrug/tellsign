@@ -39,4 +39,13 @@ describe("tell corpus", () => {
       expect(count).toBeGreaterThanOrEqual(3);
     }
   });
+
+  it("never has a blank or whitespace-only term", () => {
+    // An empty term compiles to a zero-width /\b\b/ pattern in
+    // analyze.ts's buildPattern — findMatches guards against the
+    // resulting infinite loop, but the corpus should never rely on it.
+    for (const tell of allTells) {
+      expect(tell.term.trim().length).toBeGreaterThan(0);
+    }
+  });
 });
