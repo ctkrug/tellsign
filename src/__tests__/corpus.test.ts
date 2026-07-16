@@ -1,4 +1,5 @@
 import { describe, expect, it } from "vitest";
+import { findMatches } from "../analyze";
 import { allTells } from "../data";
 import type { TellCategory } from "../data/types";
 
@@ -38,6 +39,15 @@ describe("tell corpus", () => {
       const count = allTells.filter((t) => t.category === category).length;
       expect(count).toBeGreaterThanOrEqual(3);
     }
+  });
+
+  it("catches 'boasts', the exact inflected form its own explanation cites as the example", () => {
+    // The "boast" entry's explanation literally uses "the phone boasts a
+    // large screen" as its example — the corpus's own preset marketing-copy
+    // sample and the scoring fixture both use this inflected form too, so
+    // the whole-word matcher must recognize it, not just the bare "boast".
+    const ids = findMatches("Our platform boasts a robust design.", allTells).map((t) => t.tell.id);
+    expect(ids.some((id) => id.includes("boast"))).toBe(true);
   });
 
   it("never has a blank or whitespace-only term", () => {
