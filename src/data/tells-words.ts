@@ -99,6 +99,16 @@ export const wordTells: Tell[] = [
     explanation: '"Foster" as filler for "encourage" or "support" ("foster collaboration") reads as HR-brochure language models default to.',
   },
   {
+    id: "fosters",
+    // Separate entry, not a stemmed match — see the "boasts" entry above
+    // for why (the matcher is deliberately exact whole-word).
+    term: "fosters",
+    kind: "word",
+    category: "inflated-verb",
+    weight: 2,
+    explanation: 'Third-person form of "foster" ("fosters collaboration") — same HR-brochure filler as the base form.',
+  },
+  {
     id: "bolster",
     term: "bolster",
     kind: "word",
