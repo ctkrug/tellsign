@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>Tellsign — an honest style checker, not a black-box AI detector</title>
+    <meta
+      name="description"
+      content="Tellsign highlights the specific words and phrasing patterns documented as LLM writing tells, live, with a transparent AI-osity meter — no probability score, no black box."
+    />
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+    <link rel="stylesheet" href="../src/styles/tokens.css" />
+    <link rel="stylesheet" href="./site.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <h1 class="wordmark">
+          Tell<span class="mark">sign
+            <svg viewBox="0 0 80 12" preserveAspectRatio="none" aria-hidden="true">
+              <path d="M2 8 Q 40 2 78 8" />
+            </svg>
+          </span>
+        </h1>
+        <a class="cta-btn" href="../index.html">Open Tellsign →</a>
+      </header>
+
+      <main>
+        <section class="hero">
+          <p class="eyebrow">An honest style checker</p>
+          <p class="pitch">
+            Not a black-box AI detector. Paste your text and watch the exact
+            words and phrasing patterns known as GPT-era tells light up
+            <span class="pitch-mark">as you type</span> — each one with a
+            plain-language reason it's flagged, and a transparent AI-osity
+            meter built from math you can read the source for.
+          </p>
+          <a class="cta-btn cta-btn-large" href="../index.html">Try it on your own writing →</a>
+        </section>
+
+        <section class="manifesto">
+          <article class="manifesto-block">
+            <span class="manifesto-mark">01</span>
+            <div>
+              <h2>The problem with "87% AI"</h2>
+              <p>
+                Most detectors output a probability with no explanation. A
+                number like that gives you nothing to act on — you can't tell
+                if it's right, can't tell what tripped it, and can't push
+                back on a specific claim. Worse, these tools are frequently
+                wrong in ways that matter, and because the reasoning is
+                hidden, nobody can check their work.
+              </p>
+            </div>
+          </article>
+          <article class="manifesto-block">
+            <span class="manifesto-mark">02</span>
+            <div>
+              <h2>What a "tell" actually is</h2>
+              <p>
+                GPT-era prose has a recognizable style: words like "delve,"
+                phrases like "it's important to note," the rule-of-three
+                cadence, throat-clearing hedges. That's real and observable —
+                just not proof of authorship. Tellsign is a curated,
+                inspectable corpus of those patterns, matched with plain
+                regex, in your browser. No model call, no network request
+                after the page loads.
+              </p>
+            </div>
+          </article>
+          <article class="manifesto-block">
+            <span class="manifesto-mark">03</span>
+            <div>
+              <h2>Who it's for — and who it isn't</h2>
+              <p>
+                Writers, editors, and anyone curious about their own prose
+                who wants a concrete, inspectable style check instead of a
+                verdict. It's <em>not</em> built for academic-integrity
+                enforcement or hiring screens — a curated word list can't
+                support that kind of high-stakes decision, and Tellsign
+                won't pretend otherwise.
+              </p>
+            </div>
+          </article>
+        </section>
+
+        <section class="preview" aria-hidden="true">
+          <div class="preview-card">
+            <p class="preview-label">A sample redline</p>
+            <p class="preview-text">
+              In today's fast-paced world, it's
+              <mark class="tell tell-medium">important to note</mark>
+              that we must
+              <mark class="tell tell-strong">delve</mark>
+              into this topic. This solution
+              <mark class="tell tell-strong">boasts</mark>
+              a seamless, robust, and
+              <mark class="tell tell-mild">incredibly</mark>
+              scalable design.
+            </p>
+          </div>
+        </section>
+
+        <section class="final-cta">
+          <h2>See it on your own paragraph</h2>
+          <a class="cta-btn cta-btn-large" href="../index.html">Open Tellsign →</a>
+        </section>
+      </main>
+
+      <footer class="site-footer">
+        <p>Tellsign is a style checker, not a verdict. <a href="../index.html">Open the tool</a></p>
+      </footer>
+    </div>
+  </body>
+</html>
