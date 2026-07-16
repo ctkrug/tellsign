@@ -140,7 +140,9 @@ produces a single deployable output directory.
   not covered by the automated suite — verify interactively in a browser).
 - `npm run test:coverage` — Vitest with v8 coverage (`vitest.config.ts`
   scopes the report to the pure logic modules above: 100% lines as of the
-  last QA pass).
+  last QA pass, with an 85%-line-and-branch threshold enforced — CI runs
+  this instead of plain `npm test`, so a regression below that floor
+  fails the build, not just a future manual review).
 - `npm run typecheck` — `tsc -b --noEmit`.
 - `npm run build` — outputs a static, relative-path bundle to `dist/`,
   deployable at any subpath (`base: "./"` in `vite.config.ts`).
