@@ -81,6 +81,7 @@ function render(): void {
           <textarea
             class="manuscript-input"
             id="input"
+            aria-label="Manuscript text to check for AI writing tells"
             placeholder="${PLACEHOLDER.replace(/"/g, "&quot;")}"
             spellcheck="false"
           ></textarea>
