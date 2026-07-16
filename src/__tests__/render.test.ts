@@ -21,6 +21,22 @@ describe("renderHighlights", () => {
     expect(html).toContain(">delve</mark>");
   });
 
+  it("uses tell-medium for a weight-2 tell", () => {
+    const boast: Tell = { ...delve, id: "boast", term: "boast", weight: 2 };
+    const text = "It boasts a lot.";
+    const matches: Match[] = [{ tell: boast, start: 3, end: 9, matchedText: "boasts" }];
+    const html = renderHighlights(text, matches);
+    expect(html).toContain('<mark class="tell tell-medium"');
+  });
+
+  it("uses tell-mild for a weight-1 tell", () => {
+    const robust: Tell = { ...delve, id: "robust", term: "robust", weight: 1 };
+    const text = "A robust design.";
+    const matches: Match[] = [{ tell: robust, start: 2, end: 8, matchedText: "robust" }];
+    const html = renderHighlights(text, matches);
+    expect(html).toContain('<mark class="tell tell-mild"');
+  });
+
   it("carries the category and explanation as data attributes for the tooltip", () => {
     const text = "Let's delve in.";
     const matches: Match[] = [{ tell: delve, start: 6, end: 11, matchedText: "delve" }];
