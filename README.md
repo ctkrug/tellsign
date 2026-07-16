@@ -56,6 +56,18 @@ dev/build tooling, tested with [Vitest](https://vitest.dev/). Ships as a
 static site (`dist/`) with relative asset paths so it can be hosted from any
 subpath, no server required.
 
+## Development
+
+```
+npm install
+npm run dev        # local dev server with hot reload
+npm test           # run the test suite
+npm run build      # static bundle to dist/ (app + site/)
+```
+
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for the full command list
+(typecheck, coverage, preview) and how the codebase is organized.
+
 ## Status
 
 Core highlighting, corpus, category toggles, sample loader, sharing, the
