@@ -110,7 +110,7 @@ function render(): void {
         </div>
         <div class="meter-card">
           <div class="meter-label">Share</div>
-          <button type="button" class="copy-btn" id="copy-summary">Copy summary</button>
+          <button type="button" class="copy-btn" id="copy-summary" aria-live="polite">Copy summary</button>
         </div>
       </aside>
     </main>
