@@ -6,6 +6,7 @@ import { allTells, type TellCategory } from "./data";
 import { samples } from "./data/samples";
 import { loadDisabledCategories, saveDisabledCategories, type KeyValueStorage } from "./storage";
 import { buildSummary } from "./summary";
+import { describeScore } from "./a11y";
 
 const CATEGORY_LABELS: Record<TellCategory, string> = {
   "inflated-verb": "Inflated verb",
@@ -93,6 +94,7 @@ function render(): void {
           <div class="meter-label">AI-osity</div>
           <div class="meter-track"><div class="meter-fill" id="meter-fill"></div></div>
           <div class="meter-readout" id="meter-readout">0</div>
+          <div class="sr-only" id="meter-live" aria-live="polite" aria-atomic="true"></div>
         </div>
         <div class="meter-card">
           <div class="meter-label">Tell categories</div>
@@ -118,6 +120,7 @@ function render(): void {
   const backdrop = app.querySelector<HTMLDivElement>("#backdrop")!;
   const meterFill = app.querySelector<HTMLDivElement>("#meter-fill")!;
   const meterReadout = app.querySelector<HTMLDivElement>("#meter-readout")!;
+  const meterLive = app.querySelector<HTMLDivElement>("#meter-live")!;
   const legend = app.querySelector<HTMLUListElement>("#legend")!;
   const sampleButtons = app.querySelector<HTMLDivElement>("#samples")!;
   const copyButton = app.querySelector<HTMLButtonElement>("#copy-summary")!;
@@ -133,6 +136,7 @@ function render(): void {
     backdrop.innerHTML = renderHighlights(input.value, lastResult.matches);
     meterFill.style.width = `${lastResult.score}%`;
     meterReadout.textContent = String(lastResult.score);
+    meterLive.textContent = describeScore(lastResult);
   }
 
   function showTooltip(mark: HTMLElement): void {
