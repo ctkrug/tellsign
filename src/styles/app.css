@@ -359,7 +359,10 @@ button {
   padding: var(--space-2) var(--space-3);
   border: none;
   border-radius: var(--radius);
-  background: var(--accent-support);
+  /* accent-support-ink, not accent-support: white text on the lighter gold
+     only reaches ~3.75:1, short of the 4.5:1 text minimum (same problem
+     --accent-support-ink was introduced for on the mild-tell underline). */
+  background: var(--accent-support-ink);
   color: var(--surface-1);
   font-family: var(--font-ui);
   font-weight: 600;
@@ -369,7 +372,7 @@ button {
 }
 
 .copy-btn:hover {
-  background: color-mix(in srgb, var(--accent-support) 85%, black);
+  background: color-mix(in srgb, var(--accent-support-ink) 85%, black);
 }
 
 .copy-btn:focus-visible {
