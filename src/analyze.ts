@@ -18,8 +18,12 @@ function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }
 
+// Pasted text commonly carries a typographic apostrophe (U+2019) instead
+// of a straight one; match either so phrases like "it's important to
+// note" still fire against text copied from Word, Docs, or a chat UI.
 function buildPattern(term: string): RegExp {
-  return new RegExp(`\\b${escapeRegExp(term)}\\b`, "gi");
+  const pattern = escapeRegExp(term).replace(/'/g, "['’]");
+  return new RegExp(`\\b${pattern}\\b`, "gi");
 }
 
 /** Finds every occurrence of every tell in `text`, in document order. */
