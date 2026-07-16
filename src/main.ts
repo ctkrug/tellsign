@@ -92,7 +92,17 @@ function render(): void {
       <aside class="sidebar">
         <div class="meter-card">
           <div class="meter-label">AI-osity</div>
-          <div class="meter-track"><div class="meter-fill" id="meter-fill"></div></div>
+          <div
+            class="meter-track"
+            id="meter-track"
+            role="progressbar"
+            aria-label="AI-osity score"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+          >
+            <div class="meter-fill" id="meter-fill"></div>
+          </div>
           <div class="meter-readout" id="meter-readout">0</div>
           <div class="sr-only" id="meter-live" aria-live="polite" aria-atomic="true"></div>
         </div>
@@ -118,6 +128,7 @@ function render(): void {
 
   const input = app.querySelector<HTMLTextAreaElement>("#input")!;
   const backdrop = app.querySelector<HTMLDivElement>("#backdrop")!;
+  const meterTrack = app.querySelector<HTMLDivElement>("#meter-track")!;
   const meterFill = app.querySelector<HTMLDivElement>("#meter-fill")!;
   const meterReadout = app.querySelector<HTMLDivElement>("#meter-readout")!;
   const meterLive = app.querySelector<HTMLDivElement>("#meter-live")!;
@@ -136,6 +147,7 @@ function render(): void {
     backdrop.innerHTML = renderHighlights(input.value, lastResult.matches);
     meterFill.style.width = `${lastResult.score}%`;
     meterReadout.textContent = String(lastResult.score);
+    meterTrack.setAttribute("aria-valuenow", String(lastResult.score));
     meterLive.textContent = describeScore(lastResult);
   }
 
