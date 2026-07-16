@@ -23,6 +23,18 @@ export const wordTells: Tell[] = [
     explanation: 'Used as a fancy stand-in for "has" or "includes" ("the phone boasts a large screen") — a marketing-copy tic models lean on heavily.',
   },
   {
+    id: "boasts",
+    // A separate entry, not a stemmed match on "boast": the matcher is
+    // deliberately exact whole-word (see the delve/delved guardrail
+    // test), and "boasts" is the inflected form the "boast" explanation
+    // itself uses as the example — it needs to be catchable too.
+    term: "boasts",
+    kind: "word",
+    category: "inflated-verb",
+    weight: 2,
+    explanation: 'Third-person form of "boast" used as a stand-in for "has" or "includes" ("the phone boasts a large screen") — a marketing-copy tic models lean on heavily.',
+  },
+  {
     id: "underscore",
     term: "underscore",
     kind: "word",
